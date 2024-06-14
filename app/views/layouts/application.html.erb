@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SimpleBlog</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+</head>
+<body>
+<header>
+  <nav>
+    <ul>
+      <% if user_signed_in? %>
+        <li>
+          <%= form_with url: destroy_user_session_path, method: :delete, class: 'inline-form' do %>
+            <%= submit_tag 'Sign Out' %>
+          <% end %>
+        </li>
+        <li><%= link_to 'My Profile', my_profile_path %></li>
+      <% else %>
+        <li><%= link_to 'Sign In', new_user_session_path %></li>
+        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <%= render 'layouts/flash_messages' %>
+  <%= yield %>
+</main>
+
+<footer>
+  <p>&copy; <%= Date.today.year %> SimpleBlog</p>
+</footer>
+</body>
+</html>
