@@ -17,19 +17,36 @@
 <% @article.comments.each do |comment| %>
   <p>
     <strong>Commenter:</strong>
-    <%= comment.commenter_name %>
+    <%= comment.user.email %>
   </p>
 
   <p>
     <%= comment.body %>
   </p>
+
+  <% if comment.user == current_user || @article.user == current_user %>
+    <%= form_with(model: [@article, comment], method: :delete, local: true) do |form| %>
+      <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <br>
 
-<% if @article.user == current_user %>
-  <%= link_to 'Edit', edit_article_path(@article) %> |
-  <%= link_to 'Destroy', destroy_confirmation_article_path(@article), class: "delete-btn", data: { confirm: '' } %>
+<% if user_signed_in? %>
+  <h3>New Comment</h3>
+  <%= form_with(model: [@article, @article.comments.build], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :body %>
+      <%= form.text_area :body, required: true %>
+    </div>
+    <div class="actions">
+      <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+<% else %>
+  <p>You must be signed in to post a comment.</p>
 <% end %>
+
 <br>
 <%= link_to 'Back', articles_path %>

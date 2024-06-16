@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   }
 
   resources :articles do
+    resources :comments, only: [:create, :destroy]
     member do
       get 'destroy_confirmation'
     end

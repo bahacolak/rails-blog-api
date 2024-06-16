@@ -1,14 +1,11 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
-// Ensure that Rails UJS is properly imported
 import Rails from "@rails/ujs";
 Rails.start();
 
 import { Turbo } from "@hotwired/turbo-rails";
 Turbo.start();
 
-// Event listener for document load or turbo load
 document.addEventListener("turbo:load", function() {
     const deleteButtons = document.querySelectorAll(".delete-btn");
 
@@ -21,12 +18,12 @@ document.addEventListener("turbo:load", function() {
                 fetch(url, {
                     method: 'DELETE',
                     headers: {
-                        'X-CSRF-Token': Rails.csrfToken(), // Ensure CSRF token is sent
+                        'X-CSRF-Token': Rails.csrfToken(),
                         'Accept': 'text/vnd.turbo-stream.html'
                     }
                 }).then(response => {
                     if (response.ok) {
-                        window.location.href = "/"; // Redirect to the main page or wherever necessary
+                        window.location.href = "/";
                     } else {
                         alert("Failed to delete the article");
                     }

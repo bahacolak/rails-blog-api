@@ -1,29 +1,43 @@
-<h1>Articles</h1>
+<h1>Homepage</h1>
 
-<table>
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Content</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
+<% @articles.each do |article| %>
+  <div class="article">
+    <h2><%= link_to article.title, article_path(article) %></h2>
+    <p><%= article.content %></p>
+    <p><strong>Author:</strong> <%= article.user.email %></p>
 
-  <tbody>
-  <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.title %></td>
-      <td><%= article.content %></td>
-      <% if article.user == current_user %>
-        <td><%= link_to 'Show', article_path(article) %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', destroy_confirmation_article_path(article), class: 'btn btn-danger' %></td>
-      <% else %>
-        <td><%= link_to 'Show', article_path(article) %></td>
+    <% if article.user == current_user %>
+      <%= link_to 'Edit', edit_article_path(article), class: 'btn btn-secondary' %> |
+      <%= link_to 'Destroy', destroy_confirmation_article_path(article), class: 'btn btn-danger' %>
+    <% end %>
+
+    <h3>Comments</h3>
+    <% article.comments.each do |comment| %>
+      <div class="comment">
+        <p>
+          <strong>Commenter:</strong>
+          <%= comment.user.email %>
+        </p>
+        <p><%= comment.body %></p>
+      </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <h4>Add a Comment</h4>
+      <%= form_with(model: [article, article.comments.build], local: true) do |form| %>
+        <div class="field">
+          <%= form.label :body %>
+          <%= form.text_area :body, required: true %>
+        </div>
+        <div class="actions">
+          <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+        </div>
       <% end %>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+    <% else %>
+      <p><%= link_to 'Sign In', new_user_session_path %> to add a comment.</p>
+    <% end %>
+  </div>
+  <hr>
+<% end %>
 
 <%= link_to 'New Article', new_article_path, class: 'btn btn-primary' %>
