@@ -40,8 +40,11 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.destroy
-    redirect_to articles_url, notice: 'Article was successfully destroyed.'
+    if @article.destroy
+      redirect_to articles_url, notice: 'Article was successfully destroyed.'
+    else
+      redirect_to articles_url, alert: 'There was an error deleting the article.'
+    end
   end
 
   private
