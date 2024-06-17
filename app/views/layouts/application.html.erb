@@ -6,34 +6,52 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 </head>
 <body>
-<header>
-  <nav>
-    <ul>
-      <% if user_signed_in? %>
-        <li>
-          <%= form_with url: destroy_user_session_path, method: :delete, class: 'inline-form' do %>
-            <%= submit_tag 'Sign Out' %>
-          <% end %>
-        </li>
-        <li><%= link_to 'My Profile', my_profile_path %></li>
-      <% else %>
-        <li><%= link_to 'Sign In', new_user_session_path %></li>
-        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-      <% end %>
-    </ul>
-  </nav>
-</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="<%= root_path %>">SimpleBlog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to 'New Article', new_article_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'My Profile', my_profile_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= form_with url: destroy_user_session_path, method: :delete, class: 'inline-form', local: true do %>
+              <%= submit_tag 'Sign Out', class: 'btn btn-link nav-link' %>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<main>
+<div class="container mt-4">
   <%= render 'layouts/flash_messages' %>
   <%= yield %>
-</main>
+</div>
 
-<footer>
-  <p>&copy; <%= Date.today.year %> SimpleBlog</p>
+<footer class="bg-light text-center text-lg-start mt-5 p-3">
+  <div class="container">
+    <p class="mb-0">&copy; <%= Date.today.year %> SimpleBlog. All rights reserved.</p>
+  </div>
 </footer>
+
+<%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %> <!-- Body'nin hemen kapanışından önce -->
 </body>
 </html>
