@@ -1,36 +1,45 @@
-.table-profile {
-  width: 100%;
-  margin: 20px 0;
-  border-collapse: collapse;
+@import "bootstrap";
 
-  th, td {
-    padding: 15px;
-    text-align: left;
-    border: 1px solid #ddd;
+.my-profile-container {
+  h1 {
+    font-size: 2.5em;
+    color: #333;
   }
 
-  th {
-    background-color: #f2f2f2;
+  .table-custom-profile {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td.custom-content-my-profile {
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .custom-table-actions {
+      white-space: nowrap;
+    }
   }
 
-  td.content-my-profile {
-    max-width: 400px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .custom-profile-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+
+    .btn {
+      flex-grow: 1;
+    }
   }
-
-  .table-actions {
-    white-space: nowrap;
-  }
-}
-
-.profile-actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.profile-actions .btn {
-  flex-grow: 1;
 }
