@@ -2,7 +2,7 @@
 
 <% @articles.each do |article| %>
   <div class="article">
-    <h2><%= link_to article.title, article_path(article) %></h2>
+    <h2 class="custom-title"><%= link_to article.title, article_path(article) %></h2>
     <p><%= article.content %></p>
     <p><strong>Author:</strong> <%= article.user.email %></p>
     <p><strong>Created At:</strong> <%= article.created_at.strftime("%d %B %Y %H:%M") %></p>

@@ -18,6 +18,16 @@
 /* app/assets/stylesheets/application.css */
 @import "bootstrap";
 
+.custom-title a {
+    color: blue;
+    text-decoration: none;
+}
+
+.custom-title a:hover {
+    color: darkblue;
+    text-decoration: underline;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
