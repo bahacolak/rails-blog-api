@@ -16,9 +16,37 @@
 
 /* app/assets/stylesheets/application.css */
 /* app/assets/stylesheets/application.css */
-@import "bootstrap"; // Gem tarafından sağlanan Bootstrap stil dosyalarını yükler
+@import "bootstrap";
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
+table th {
+    background-color: #f2f2f2;
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+table td.content-my-profile {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.show-content{
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
 
 body {
     padding-top: 56px;
