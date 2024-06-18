@@ -13,22 +13,29 @@
   <%= @article.user.email %>
 </p>
 
+<p>
+  <strong>Created At:</strong>
+  <%= @article.created_at.strftime('%B %d, %Y %H:%M') %>
+</p>
+
 <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.user.email %>
-  </p>
+  <div class="comment">
+    <p>
+      <strong>Commenter:</strong>
+      <%= comment.user.email %>
+    </p>
 
-  <p>
-    <%= comment.body %>
-  </p>
+    <p>
+      <%= comment.body %>
+    </p>
 
-  <% if comment.user == current_user || @article.user == current_user %>
-    <%= form_with(model: [@article, comment], method: :delete, local: true) do |form| %>
-      <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% if comment.user == current_user || @article.user == current_user %>
+      <%= form_with(model: [comment], url: article_comment_path(@article, comment), method: :delete, local: true) do |form| %>
+        <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
 
 <br>
