@@ -1,0 +1,55 @@
+.delete-confirmation-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .confirmation-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #dc3545; /* Red color for confirmation title */
+  }
+
+  .confirmation-info {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Align buttons to the right */
+
+    .confirm-btn {
+      padding: 8px 15px;
+      background-color: #dc3545; /* Red color for delete button */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #c82333; /* Darker red on hover */
+      }
+    }
+
+    .cancel-btn {
+      padding: 8px 15px;
+      background-color: #6c757d; /* Grey color for cancel button */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #5a6268; /* Darker grey on hover */
+      }
+    }
+  }
+}

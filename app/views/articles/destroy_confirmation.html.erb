@@ -1,9 +1,11 @@
-<h2>Are you sure you want to delete this article?</h2>
+<div class="delete-confirmation-container">
+  <h2 class="confirmation-title">Are you sure you want to delete this article?</h2>
 
-<p>Title: <%= @article.title %></p>
-<p>Content: <%= @article.content %></p>
+  <p class="confirmation-info">Title: <%= @article.title %></p>
+  <p class="confirmation-info">Content: <%= @article.content %></p>
 
-<%= form_with model: @article, url: article_path(@article), method: :delete, local: true do %>
-  <%= submit_tag 'Confirm Delete', class: 'btn btn-danger' %>
-  <%= link_to 'Cancel', article_path(@article), class: 'btn btn-secondary' %>
-<% end %>
+  <%= form_with model: @article, url: article_path(@article), method: :delete, local: true do |form| %>
+    <%= submit_tag 'Confirm Delete', class: 'btn btn-danger confirm-btn' %>
+    <%= link_to 'Cancel', article_path(@article), class: 'btn btn-secondary cancel-btn' %>
+  <% end %>
+</div>
