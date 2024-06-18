@@ -1,44 +1,53 @@
-<h1>Homepage</h1>
+<div class="container">
+  <h1>Homepage</h1>
 
-<% @articles.each do |article| %>
-  <div class="article">
-    <h2 class="custom-title"><%= link_to article.title, article_path(article) %></h2>
-    <p><%= article.content %></p>
-    <p><strong>Author:</strong> <%= article.user.email %></p>
-    <p><strong>Created At:</strong> <%= article.created_at.strftime("%d %B %Y %H:%M") %></p>
+  <% @articles.each do |article| %>
+    <div class="article">
+      <h2 class="article-title"><%= link_to article.title, article_path(article) %></h2>
+      <p class="article-content"><%= article.content %></p>
+      <p class="article-meta">
+        <strong>Author:</strong> <%= article.user.email %><br>
+        <strong>Created At:</strong> <%= article.created_at.strftime("%d %B %Y %H:%M") %>
+      </p>
 
-    <% if article.user == current_user %>
-      <%= link_to 'Edit', edit_article_path(article), class: 'btn btn-secondary' %> |
-      <%= link_to 'Destroy', destroy_confirmation_article_path(article), class: 'btn btn-danger' %>
-    <% end %>
-
-    <h3>Comments</h3>
-    <% article.comments.each do |comment| %>
-      <div class="comment">
-        <p>
-          <strong>Commenter:</strong>
-          <%= comment.user.email %>
-        </p>
-        <p><%= comment.body %></p>
-      </div>
-    <% end %>
-
-    <% if user_signed_in? %>
-      <h4>Add a Comment</h4>
-      <%= form_with(model: [article, article.comments.build], local: true) do |form| %>
-        <div class="field">
-          <%= form.label :body %>
-          <%= form.text_area :body, required: true %>
-        </div>
-        <div class="actions">
-          <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+      <% if article.user == current_user %>
+        <div class="article-actions">
+          <%= link_to 'Edit', edit_article_path(article), class: 'btn btn-secondary' %>
+          <%= link_to 'Destroy', destroy_confirmation_article_path(article), class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
         </div>
       <% end %>
-    <% else %>
-      <p><%= link_to 'Sign In', new_user_session_path %> to add a comment.</p>
-    <% end %>
-  </div>
-  <hr>
-<% end %>
 
-<%= link_to 'New Article', new_article_path, class: 'btn btn-primary' %>
+      <h3>Comments</h3>
+      <div class="comments">
+        <% article.comments.each do |comment| %>
+          <div class="comment">
+            <p>
+              <strong>Commenter:</strong> <%= comment.user.email %>
+            </p>
+            <p class="comment-body"><%= comment.body %></p>
+          </div>
+        <% end %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="add-comment">
+          <h4>Add a Comment</h4>
+          <%= form_with(model: [article, article.comments.build], local: true) do |form| %>
+            <div class="field">
+              <%= form.label :body %>
+              <%= form.text_area :body, required: true %>
+            </div>
+            <div class="actions">
+              <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p><%= link_to 'Sign In', new_user_session_path %> to add a comment.</p>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+
+  <%= link_to 'New Article', new_article_path, class: 'btn btn-primary' %>
+</div>

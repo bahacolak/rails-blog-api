@@ -4,7 +4,7 @@
 </p>
 
 <div class="show-content">
-  <p>
+  <p class="article-content">
     <strong>Content:</strong>
     <%= @article.content %>
   </p>
@@ -28,7 +28,7 @@
       <%= comment.user.email %>
     </p>
 
-    <p>
+    <p class="comment-body">
       <%= comment.body %>
     </p>
 
@@ -43,16 +43,18 @@
 <br>
 
 <% if user_signed_in? %>
-  <h3>New Comment</h3>
-  <%= form_with(model: [@article, @article.comments.build], local: true) do |form| %>
-    <div class="field">
-      <%= form.label :body %>
-      <%= form.text_area :body, required: true %>
-    </div>
-    <div class="actions">
-      <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+  <div class="add-comment">
+    <h3>New Comment</h3>
+    <%= form_with(model: [@article, @article.comments.build], local: true) do |form| %>
+      <div class="field">
+        <%= form.label :body %>
+        <%= form.text_area :body, required: true %>
+      </div>
+      <div class="actions">
+        <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
 <% else %>
   <p>You must be signed in to post a comment.</p>
 <% end %>
