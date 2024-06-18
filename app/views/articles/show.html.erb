@@ -1,69 +1,71 @@
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
-
-<div class="show-content">
-  <p class="article-content">
-    <strong>Content:</strong>
-    <%= @article.content %>
+<div class="show-article">
+  <p class="show-item">
+    <strong>Title:</strong>
+    <%= @article.title %>
   </p>
-</div>
 
-<p>
-  <strong>Author:</strong>
-  <%= @article.user.email %>
-</p>
-
-<p>
-  <strong>Created At:</strong>
-  <%= @article.created_at.strftime('%B %d, %Y %H:%M') %>
-</p>
-
-<h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <div class="comment">
-    <p>
-      <strong>Commenter:</strong>
-      <%= comment.user.email %>
+  <div class="show-content">
+    <p class="article-content show-item">
+      <strong>Content:</strong>
+      <%= @article.content %>
     </p>
+  </div>
 
-    <p class="comment-body">
-      <%= comment.body %>
-    </p>
+  <p class="show-item">
+    <strong>Author:</strong>
+    <%= @article.user.email %>
+  </p>
 
-    <% if comment.user == current_user || @article.user == current_user %>
-      <%= form_with(model: [comment], url: article_comment_path(@article, comment), method: :delete, local: true) do |form| %>
-        <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <p class="show-item">
+    <strong>Created At:</strong>
+    <%= @article.created_at.strftime('%B %d, %Y %H:%M') %>
+  </p>
+
+  <h2 class="comments-title">Comments</h2>
+  <% @article.comments.each do |comment| %>
+    <div class="comment">
+      <p class="comment-item">
+        <strong>Commenter:</strong>
+        <%= comment.user.email %>
+      </p>
+
+      <p class="comment-body">
+        <%= comment.body %>
+      </p>
+
+      <% if comment.user == current_user || @article.user == current_user %>
+        <%= form_with(model: [comment], url: article_comment_path(@article, comment), method: :delete, local: true) do |form| %>
+          <%= form.submit 'Delete', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger delete-comment-btn' %>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
 
-<br>
+  <br>
 
-<% if user_signed_in? %>
-  <div class="add-comment">
-    <h3>New Comment</h3>
-    <%= form_with(model: [@article, @article.comments.build], local: true) do |form| %>
-      <div class="field">
-        <%= form.label :body %>
-        <%= form.text_area :body, required: true %>
-      </div>
-      <div class="actions">
-        <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <p>You must be signed in to post a comment.</p>
-<% end %>
+  <% if user_signed_in? %>
+    <div class="add-comment">
+      <h3 class="add-comment-title">New Comment</h3>
+      <%= form_with(model: [@article, @article.comments.build], local: true) do |form| %>
+        <div class="field">
+          <%= form.label :body, class: 'comment-label' %>
+          <%= form.text_area :body, required: true, class: 'comment-textarea' %>
+        </div>
+        <div class="actions">
+          <%= form.submit 'Post Comment', class: 'btn btn-primary post-comment-btn' %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="signin-message">You must be signed in to post a comment.</p>
+  <% end %>
 
-<br>
+  <br>
 
-<% if user_signed_in? && current_user == @article.user %>
-  <%= link_to 'Edit', edit_article_path(@article), class: 'btn btn-secondary' %>
-  <%= link_to 'Destroy', destroy_confirmation_article_path(@article), class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
-<% end %>
+  <% if user_signed_in? && current_user == @article.user %>
+    <%= link_to 'Edit', edit_article_path(@article), class: 'btn btn-secondary edit-article-btn' %>
+    <%= link_to 'Destroy', destroy_confirmation_article_path(@article), class: 'btn btn-danger destroy-article-btn', data: { confirm: 'Are you sure?' } %>
+  <% end %>
 
-<%= link_to 'Back', articles_path, class: 'btn btn-primary' %>
+  <%= link_to 'Back', articles_path, class: 'btn btn-primary back-btn' %>
+</div>
