@@ -3,7 +3,9 @@
 
   <% @articles.each do |article| %>
     <div class="article">
-      <h2 class="article-title"><%= link_to article.title, article_path(article) %></h2>
+      <h2 class="article-title">
+        <%= link_to article.title, article_path(article) %>
+      </h2>
       <p class="article-content"><%= article.content %></p>
       <p class="article-meta">
         <strong>Author:</strong> <%= article.user.email %><br>
@@ -17,37 +19,37 @@
         </div>
       <% end %>
 
-      <h3>Comments</h3>
-      <div class="comments">
-        <% article.comments.each do |comment| %>
-          <div class="comment">
-            <p>
-              <strong>Commenter:</strong> <%= comment.user.email %>
-            </p>
-            <p class="comment-body"><%= comment.body %></p>
-          </div>
-        <% end %>
-      </div>
-
-      <% if user_signed_in? %>
-        <div class="add-comment">
-          <h4>Add a Comment</h4>
-          <%= form_with(model: [article, article.comments.build], local: true) do |form| %>
-            <div class="field">
-              <%= form.label :body %>
-              <%= form.text_area :body, required: true %>
-            </div>
-            <div class="actions">
-              <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <div class="comments">
+          <% article.comments.each do |comment| %>
+            <div class="comment">
+              <p><strong>Commenter:</strong> <%= comment.user.email %></p>
+              <p class="comment-body"><%= comment.body %></p>
             </div>
           <% end %>
         </div>
-      <% else %>
-        <p><%= link_to 'Sign In', new_user_session_path %> to add a comment.</p>
-      <% end %>
+
+        <% if user_signed_in? %>
+          <div class="add-comment">
+            <h4>Add a Comment</h4>
+            <%= form_with(model: [article, article.comments.build], local: true) do |form| %>
+              <div class="field">
+                <%= form.label :body %>
+                <%= form.text_area :body, required: true %>
+              </div>
+              <div class="actions">
+                <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p><%= link_to 'Sign In', new_user_session_path %> to add a comment.</p>
+        <% end %>
+      </div>
     </div>
     <hr>
   <% end %>
 
-  <%= link_to 'New Article', new_article_path, class: 'btn btn-primary' %>
+  <%= link_to 'New Article', new_article_path, class: 'btn btn-primary new-article-btn' %>
 </div>
