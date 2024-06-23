@@ -1,0 +1,2 @@
+class InvalidLoginAttemptError < StandardError
+end
